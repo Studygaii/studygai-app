@@ -56,11 +56,6 @@ export function RemindersCard() {
             ))}
           </div>
         )}
-
-        {/* Floating Action Button */}
-        <button className="fixed bottom-6 right-6 h-12 w-12 rounded-full bg-primary text-primary-foreground shadow-lg hover:shadow-xl hover:scale-105 transition-all flex items-center justify-center">
-          <Bell className="h-5 w-5" />
-        </button>
       </CardContent>
     </Card>
   );
