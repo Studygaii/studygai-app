@@ -7,7 +7,7 @@ export function DashboardHeader() {
   const dateString = today.toLocaleDateString('en-US', options);
 
   return (
-    <header className="mb-6">
+    <header className="mb-6 pt-12">
       <p className="text-sm text-muted-foreground mb-1">{dateString}</p>
       <div className="flex flex-wrap items-center gap-4">
         <div>

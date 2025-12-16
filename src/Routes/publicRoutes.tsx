@@ -3,6 +3,7 @@ import { RouteObject } from "react-router-dom";
 import Index from "@/pages/Index";
 import NotFound from "@/pages/NotFound";
 import Dashboard from "@/pages/Dashboard";
+import DashboardLayout from "@/components/layouts/DashboardLayout";
 
 export const publicRoutes: RouteObject[] = [
   {
@@ -11,7 +12,9 @@ export const publicRoutes: RouteObject[] = [
   },
   {
     path: "/dashboard",
-    element: <Dashboard />,
+    element: <DashboardLayout>
+      <Dashboard />
+    </DashboardLayout>,
   },
   {
     path: "*",
