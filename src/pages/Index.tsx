@@ -1,10 +1,12 @@
 import { useState } from "react";
 import { AppSidebar } from "@/components/dashboard/AppSidebar";
 import { DashboardHeader } from "@/components/dashboard/DashboardHeader";
-import { MyCoursesSection } from "@/components/dashboard/MyCoursesSection";
-import { RemindersSection } from "@/components/dashboard/RemindersSection";
-import { QuickActionsSection } from "@/components/dashboard/QuickActionsSection";
-import { RecentActivitySection } from "@/components/dashboard/RecentActivitySection";
+import { MyTasksCard } from "@/components/dashboard/MyTasksCard";
+import { ProjectsCard } from "@/components/dashboard/ProjectsCard";
+import { CalendarCard } from "@/components/dashboard/CalendarCard";
+import { MyGoalsCard } from "@/components/dashboard/MyGoalsCard";
+import { RemindersCard } from "@/components/dashboard/RemindersCard";
+import { FloatingActionButton } from "@/components/dashboard/FloatingActionButton";
 
 const Index = () => {
   const [sidebarCollapsed, setSidebarCollapsed] = useState(false);
@@ -37,19 +39,22 @@ const Index = () => {
           <DashboardHeader />
           
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-            {/* Left Column - My Courses (spans 2 cols) */}
+            {/* Left Column - My Tasks and Goals */}
             <div className="lg:col-span-2 space-y-6">
-              <MyCoursesSection />
-              <RecentActivitySection />
+              <MyTasksCard />
+              <MyGoalsCard />
             </div>
             
-            {/* Right Column - Quick Actions, Reminders */}
+            {/* Right Column - Projects, Calendar, Reminders */}
             <div className="space-y-6">
-              <QuickActionsSection />
-              <RemindersSection />
+              <ProjectsCard />
+              <CalendarCard />
+              <RemindersCard />
             </div>
           </div>
         </div>
+        
+        <FloatingActionButton />
       </main>
     </div>
   );

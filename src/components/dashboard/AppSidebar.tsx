@@ -1,13 +1,21 @@
 import { useState } from "react";
-import { LayoutDashboard, BookOpen, HelpCircle, Layers, Settings, ChevronDown, ChevronLeft, ChevronRight, Sparkles } from "lucide-react";
+import { Home, Sparkles, CheckSquare, Inbox, Calendar, BarChart3, Settings, Plus, ChevronDown, ChevronLeft, ChevronRight } from "lucide-react";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { cn } from "@/lib/utils";
 
 const navItems = [
-  { icon: LayoutDashboard, label: "Dashboard", active: true },
-  { icon: BookOpen, label: "Courses" },
-  { icon: HelpCircle, label: "Quizzes" },
-  { icon: Layers, label: "Flashcards" },
+  { icon: Home, label: "Home", active: true },
+  { icon: Sparkles, label: "Prodify AI", badge: true },
+  { icon: CheckSquare, label: "My tasks" },
+  { icon: Inbox, label: "Inbox" },
+  { icon: Calendar, label: "Calendar" },
+  { icon: BarChart3, label: "Reports & Analytics" },
+];
+
+const projects = [
+  { name: "Product launch", color: "bg-primary" },
+  { name: "Team brainstorm", color: "bg-accent" },
+  { name: "Branding launch", color: "bg-info" },
 ];
 
 interface AppSidebarProps {
@@ -33,16 +41,26 @@ export function AppSidebar({ collapsed, onToggle }: AppSidebarProps) {
         )}
       </button>
 
-      {/* Logo */}
+      {/* User Profile */}
       <div className={cn(
-        "flex items-center gap-2 mb-8",
+        "flex items-center gap-3 py-3 mb-2",
         collapsed ? "justify-center px-0" : "px-2"
       )}>
-        <div className="h-10 w-10 rounded-xl bg-primary flex items-center justify-center flex-shrink-0">
-          <Sparkles className="h-5 w-5 text-primary-foreground" />
-        </div>
+        <Avatar className="h-10 w-10 flex-shrink-0">
+          <AvatarImage src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=100&h=100&fit=crop&crop=face" />
+          <AvatarFallback>CH</AvatarFallback>
+        </Avatar>
         {!collapsed && (
-          <span className="font-display font-bold text-xl text-foreground">StudyAI</span>
+          <div className="flex-1 min-w-0">
+            <div className="flex items-center gap-1">
+              <span className="font-semibold text-sm text-foreground truncate">Courtney Henry</span>
+              <ChevronDown className="h-3.5 w-3.5 text-muted-foreground flex-shrink-0" />
+            </div>
+            <div className="flex items-center gap-1.5">
+              <span className="h-2 w-2 rounded-full bg-success"></span>
+              <span className="text-xs text-muted-foreground">Online</span>
+            </div>
+          </div>
         )}
       </div>
 
@@ -62,14 +80,41 @@ export function AppSidebar({ collapsed, onToggle }: AppSidebarProps) {
           >
             <item.icon className="h-5 w-5 flex-shrink-0" />
             {!collapsed && <span className="truncate">{item.label}</span>}
+            {!collapsed && item.badge && (
+              <span className="ml-auto text-xs">✨</span>
+            )}
           </button>
         ))}
+
+        {/* My Projects Section */}
+        {!collapsed && (
+          <div className="pt-4">
+            <div className="flex items-center justify-between px-3 mb-2">
+              <span className="text-sm font-medium text-foreground">My Projects</span>
+              <button className="text-primary text-sm font-medium hover:underline flex items-center gap-1">
+                <Plus className="h-3.5 w-3.5" />
+                Add
+              </button>
+            </div>
+            <div className="space-y-1">
+              {projects.map((project) => (
+                <button
+                  key={project.name}
+                  className="w-full flex items-center gap-3 px-3 py-2 rounded-xl text-sm text-muted-foreground hover:bg-muted hover:text-foreground transition-all"
+                >
+                  <span className={`h-2.5 w-2.5 rounded-sm ${project.color} flex-shrink-0`}></span>
+                  <span className="truncate">{project.name}</span>
+                </button>
+              ))}
+            </div>
+          </div>
+        )}
       </nav>
 
       {/* Settings */}
       <button 
         className={cn(
-          "flex items-center gap-3 rounded-xl text-sm text-muted-foreground hover:bg-muted hover:text-foreground transition-all mb-4",
+          "flex items-center gap-3 rounded-xl text-sm text-muted-foreground hover:bg-muted hover:text-foreground transition-all mb-3",
           collapsed ? "justify-center px-3 py-3" : "px-3 py-2.5"
         )}
         title={collapsed ? "Settings" : undefined}
@@ -78,32 +123,22 @@ export function AppSidebar({ collapsed, onToggle }: AppSidebarProps) {
         {!collapsed && <span>Settings</span>}
       </button>
 
-      {/* Ad Space */}
+      {/* Promo Card */}
       {!collapsed && (
-        <div className="border-2 border-dashed border-border rounded-xl p-4 mb-4 flex items-center justify-center min-h-[100px]">
-          <span className="text-muted-foreground text-sm font-medium">AD</span>
+        <div className="bg-primary rounded-xl p-4 text-primary-foreground">
+          <div className="flex items-center gap-1 mb-2">
+            <Sparkles className="h-4 w-4" />
+            <span className="font-semibold text-sm">prodify</span>
+          </div>
+          <p className="text-xs opacity-90 mb-3 leading-relaxed">
+            New members will gain access to public Spaces, Docs and Dashboards
+          </p>
+          <button className="w-full bg-card text-primary font-medium text-sm py-2 rounded-lg hover:bg-card/90 transition-colors flex items-center justify-center gap-1.5">
+            <Plus className="h-4 w-4" />
+            Invite people
+          </button>
         </div>
       )}
-
-      {/* User Profile */}
-      <div className={cn(
-        "flex items-center gap-3 py-3 border-t border-border",
-        collapsed ? "justify-center px-0" : "px-2"
-      )}>
-        <Avatar className="h-9 w-9 flex-shrink-0">
-          <AvatarImage src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=100&h=100&fit=crop&crop=face" />
-          <AvatarFallback>BK</AvatarFallback>
-        </Avatar>
-        {!collapsed && (
-          <div className="flex-1 min-w-0">
-            <div className="flex items-center gap-1">
-              <span className="font-medium text-sm text-foreground truncate">Basil K.</span>
-              <ChevronDown className="h-3.5 w-3.5 text-muted-foreground flex-shrink-0" />
-            </div>
-            <span className="text-xs text-muted-foreground">Student</span>
-          </div>
-        )}
-      </div>
     </aside>
   );
 }
