@@ -12,7 +12,7 @@ export function RemindersCard() {
   const [isOpen, setIsOpen] = useState(true);
 
   return (
-    <Card className="card-shadow animate-fade-in">
+    <Card className="rounded-sm shadow-none border border-border animate-fade-in">
       <CardHeader className="pb-2">
         <div className="flex items-center gap-2">
           <Bell className="h-5 w-5 text-primary" />
@@ -20,7 +20,7 @@ export function RemindersCard() {
         </div>
       </CardHeader>
       <CardContent>
-        <button 
+        <button
           onClick={() => setIsOpen(!isOpen)}
           className="flex items-center gap-2 mb-3 w-full text-left"
         >
@@ -36,8 +36,8 @@ export function RemindersCard() {
         {isOpen && (
           <div className="space-y-2">
             {reminders.map((reminder) => (
-              <div 
-                key={reminder.id} 
+              <div
+                key={reminder.id}
                 className="flex items-start gap-3 p-2 hover:bg-muted/50 rounded-lg transition-colors group"
               >
                 <Checkbox id={reminder.id} className="mt-0.5" />

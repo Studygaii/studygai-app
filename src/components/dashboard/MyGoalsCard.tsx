@@ -3,23 +3,23 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Progress } from "@/components/ui/progress";
 
 const goals = [
-  { 
-    name: "Check Emails and Messages", 
-    project: "Product launch", 
+  {
+    name: "Check Emails and Messages",
+    project: "Product launch",
     category: "My Projects",
     progress: 73,
     color: "bg-accent"
   },
-  { 
-    name: "Prepare a brief status update to the client", 
-    project: "Product launch", 
+  {
+    name: "Prepare a brief status update to the client",
+    project: "Product launch",
     category: "My Projects",
     progress: 11,
     color: "bg-warning"
   },
-  { 
-    name: "Update project documentation", 
-    project: "Team brainstorm", 
+  {
+    name: "Update project documentation",
+    project: "Team brainstorm",
     category: "My Projects",
     progress: 63,
     color: "bg-success"
@@ -28,7 +28,7 @@ const goals = [
 
 export function MyGoalsCard() {
   return (
-    <Card className="card-shadow animate-fade-in">
+    <Card className="rounded-sm shadow-none border border-border animate-fade-in">
       <CardHeader className="pb-3">
         <div className="flex items-center gap-2">
           <Target className="h-5 w-5 text-primary" />
@@ -46,7 +46,7 @@ export function MyGoalsCard() {
               <span className="text-sm font-semibold">{goal.progress}%</span>
             </div>
             <div className="relative h-2 w-full bg-muted rounded-full overflow-hidden">
-              <div 
+              <div
                 className={`absolute left-0 top-0 h-full ${goal.color} rounded-full transition-all duration-500`}
                 style={{ width: `${goal.progress}%` }}
               />

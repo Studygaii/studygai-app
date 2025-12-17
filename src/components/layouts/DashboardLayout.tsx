@@ -14,14 +14,14 @@ const DashboardLayout = ({ children }: { children: React.ReactNode }) => {
       />
 
       {/* Main Content with border and grid background */}
-      <main className="flex-1 flex flex-col min-h-0 relative border-l border-border rounded-tl-3xl overflow-hidden bg-background">
+      <main className="flex-1 flex flex-col min-h-0 relative border-l border-border rounded-tl-3xl overflow-hidden bg-[#F6F6F6]">
         {/* Grid Background that fades */}
         <div
           className="absolute inset-0 pointer-events-none"
           style={{
             backgroundImage: `
-              linear-gradient(to right, hsl(var(--border) / 0.5) 2px, transparent 2px),
-              linear-gradient(to bottom, hsl(var(--border) / 0.5) 2px, transparent 2px)
+              linear-gradient(to right, hsl(var(--border) / 0.7) 2px, transparent 2px),
+              linear-gradient(to bottom, hsl(var(--border) / 0.7) 2px, transparent 2px)
             `,
             backgroundSize: '40px 40px',
             maskImage: 'linear-gradient(to bottom, rgba(0,0,0,0.4) 0%, rgba(0,0,0,0.1) 50%, rgba(0,0,0,0) 80%)',

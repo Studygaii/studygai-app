@@ -20,7 +20,7 @@ const attendees = [
 
 export function CalendarCard() {
   return (
-    <Card className="card-shadow animate-fade-in">
+    <Card className="rounded-sm shadow-none border border-border animate-fade-in">
       <CardHeader className="pb-2">
         <div className="flex items-center gap-2">
           <Calendar className="h-5 w-5 text-primary" />
@@ -41,11 +41,10 @@ export function CalendarCard() {
             {days.map((d) => (
               <button
                 key={d.date}
-                className={`flex flex-col items-center py-2 px-2.5 rounded-xl transition-all ${
-                  d.active
-                    ? "bg-primary text-primary-foreground"
-                    : "hover:bg-muted text-muted-foreground hover:text-foreground"
-                }`}
+                className={`flex flex-col items-center py-2 px-2.5 rounded-xl transition-all ${d.active
+                  ? "bg-primary text-primary-foreground"
+                  : "hover:bg-muted text-muted-foreground hover:text-foreground"
+                  }`}
               >
                 <span className="text-xs">{d.day}</span>
                 <span className="text-sm font-semibold">{d.date.toString().padStart(2, '0')}</span>

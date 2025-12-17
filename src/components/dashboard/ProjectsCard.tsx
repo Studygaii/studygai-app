@@ -3,30 +3,30 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 
 const projects = [
-  { 
-    name: "Create new project", 
+  {
+    name: "Create new project",
     icon: Plus,
-    isCreate: true 
+    isCreate: true
   },
-  { 
-    name: "Product launch", 
-    tasks: 6, 
+  {
+    name: "Product launch",
+    tasks: 6,
     teammates: 12,
     icon: Rocket,
     iconColor: "text-primary",
     iconBg: "bg-primary/10"
   },
-  { 
-    name: "Team brainstorm", 
-    tasks: 2, 
+  {
+    name: "Team brainstorm",
+    tasks: 2,
     teammates: 32,
     icon: Users,
     iconColor: "text-accent",
     iconBg: "bg-accent/10"
   },
-  { 
-    name: "Branding launch", 
-    tasks: 4, 
+  {
+    name: "Branding launch",
+    tasks: 4,
     teammates: 9,
     icon: Megaphone,
     iconColor: "text-info",
@@ -36,7 +36,7 @@ const projects = [
 
 export function ProjectsCard() {
   return (
-    <Card className="card-shadow animate-fade-in">
+    <Card className="rounded-sm shadow-none border border-border animate-fade-in">
       <CardHeader className="pb-3">
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-2">
@@ -56,11 +56,10 @@ export function ProjectsCard() {
           {projects.map((project, index) => (
             <button
               key={project.name}
-              className={`flex items-center gap-3 p-3 rounded-xl transition-all ${
-                project.isCreate 
-                  ? "border-2 border-dashed border-border hover:border-primary hover:bg-secondary/50" 
-                  : "hover:bg-muted"
-              }`}
+              className={`flex items-center gap-3 p-3 rounded-xl transition-all ${project.isCreate
+                ? "border-2 border-dashed border-border hover:border-primary hover:bg-secondary/50"
+                : "hover:bg-muted"
+                }`}
             >
               {project.isCreate ? (
                 <>

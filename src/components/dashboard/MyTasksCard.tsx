@@ -24,17 +24,17 @@ const upcomingTasks: Task[] = [
   { id: "4", name: "Quarterly review presentation", priority: "High", dueDate: "Next week", completed: false },
 ];
 
-function TaskSection({ 
-  title, 
-  tasks, 
-  variant 
-}: { 
-  title: string; 
-  tasks: Task[]; 
-  variant: "progress" | "todo" | "upcoming" 
+function TaskSection({
+  title,
+  tasks,
+  variant
+}: {
+  title: string;
+  tasks: Task[];
+  variant: "progress" | "todo" | "upcoming"
 }) {
   const [isOpen, setIsOpen] = useState(true);
-  
+
   const badgeStyles = {
     progress: "bg-success/15 text-success",
     todo: "bg-secondary text-secondary-foreground",
@@ -49,7 +49,7 @@ function TaskSection({
 
   return (
     <div className="mb-4">
-      <button 
+      <button
         onClick={() => setIsOpen(!isOpen)}
         className="flex items-center gap-2 mb-3 w-full text-left"
       >
@@ -77,9 +77,8 @@ function TaskSection({
                 <Checkbox id={task.id} />
                 <label htmlFor={task.id} className="text-sm cursor-pointer">{task.name}</label>
               </div>
-              <span className={`text-xs font-medium text-center px-2.5 py-1 rounded-md ${
-                task.priority === "High" ? "bg-warning/15 text-warning" : "bg-muted text-muted-foreground"
-              }`}>
+              <span className={`text-xs font-medium text-center px-2.5 py-1 rounded-md ${task.priority === "High" ? "bg-warning/15 text-warning" : "bg-muted text-muted-foreground"
+                }`}>
                 {task.priority}
               </span>
               <span className={`text-xs text-right ${task.dueDate === "Today" ? "text-destructive font-medium" : "text-muted-foreground"}`}>
@@ -99,7 +98,7 @@ function TaskSection({
 
 export function MyTasksCard() {
   return (
-    <Card className="card-shadow animate-fade-in">
+    <Card className="rounded-sm shadow-none border border-border animate-fade-in">
       <CardHeader className="flex flex-row items-center justify-between pb-2">
         <div className="flex items-center gap-2">
           <GripVertical className="h-4 w-4 text-muted-foreground/50 cursor-grab" />

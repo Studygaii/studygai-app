@@ -12,7 +12,7 @@ export function DashboardHeader() {
       <div className="flex flex-wrap items-center gap-4">
         <div>
           <h1 className="text-3xl font-display font-bold text-foreground">Hello, Courtney</h1>
-          <p className="text-2xl font-display font-semibold gradient-text">How can I help you today?</p>
+          <p className="font-display font-semibold text-muted-foreground">How can I help you today?</p>
         </div>
         <div className="flex flex-wrap gap-2 ml-auto">
           <Button variant="ai" size="sm" className="gap-1.5">

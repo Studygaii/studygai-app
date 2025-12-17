@@ -6,9 +6,9 @@ import { RemindersCard } from "@/components/dashboard/RemindersCard";
 
 const Dashboard = () => {
   return (
-    <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+    <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
       {/* Left Column - My Tasks and Goals */}
-      <div className="lg:col-span-2 space-y-6">
+      <div className="lg:col-span-2 space-y-4">
         <MyTasksCard />
         <MyGoalsCard />
       </div>
