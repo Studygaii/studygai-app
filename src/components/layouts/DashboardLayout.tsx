@@ -14,7 +14,7 @@ const DashboardLayout = ({ children }: { children: React.ReactNode }) => {
       />
 
       {/* Main Content with border and grid background */}
-      <main className="flex-1 flex flex-col min-h-0 relative border-l border-border rounded-tl-3xl overflow-hidden bg-[#F6F6F6]">
+      <main className="flex-1 flex flex-col min-h-0 relative border-l border-border rounded-tl-3xl overflow-hidden bg-background">
         {/* Grid Background that fades */}
         <div
           className="absolute inset-0 pointer-events-none"
