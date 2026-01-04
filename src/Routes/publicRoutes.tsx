@@ -1,5 +1,4 @@
-import { RouteObject } from "react-router-dom";
-import Index from "@/pages/Index";
+import { Navigate, RouteObject } from "react-router-dom";
 import NotFound from "@/pages/NotFound";
 import Dashboard from "@/pages/Dashboard";
 import DashboardLayout from "@/components/layouts/DashboardLayout";
@@ -13,7 +12,7 @@ import ConfirmOtp from "@/pages/auth/ConfirmOtp";
 export const publicRoutes: RouteObject[] = [
   {
     path: "/",
-    element: <Index />,
+    element: <Navigate to="/auth/login" />,
   },
   {
     path: "/dashboard",
