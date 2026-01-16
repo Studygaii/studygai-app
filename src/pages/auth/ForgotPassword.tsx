@@ -4,8 +4,34 @@ import { LogoIcon } from "@/assets/icons/logo";
 import { Link } from "react-router-dom";
 import { ChevronLeft } from "lucide-react";
 import { CustomButton } from "@/components/ui/custom-button";
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { forgotPasswordSchema, ForgotPasswordValues } from "@/lib/validations/auth";
+import { useState } from "react";
+import {
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormMessage,
+} from "@/components/ui/form";
 
 export default function ForgotPassword() {
+  const [isLoading, setIsLoading] = useState(false)
+
+  const form = useForm<ForgotPasswordValues>({
+    resolver: zodResolver(forgotPasswordSchema),
+    defaultValues: {
+      email: "",
+    },
+  });
+
+  const onSubmit = (values: ForgotPasswordValues) => {
+    console.log(values)
+    setIsLoading(true)
+    setTimeout(() => setIsLoading(false), 2000)
+  }
+
   return (
     <AuthLayout>
       <div className="flex flex-col items-center mb-6">
@@ -18,21 +44,34 @@ export default function ForgotPassword() {
         </p>
       </div>
 
-      <form className="space-y-6">
-        <Input
-          type="email"
-          placeholder="Email"
-          autoFocus
-        />
+      <Form {...form}>
+        <form className="space-y-6" onSubmit={form.handleSubmit(onSubmit)}>
+          <FormField
+            control={form.control}
+            name="email"
+            render={({ field }) => (
+              <FormItem>
+                <FormControl>
+                  <Input
+                    placeholder="Email"
+                    autoFocus
+                    {...field}
+                  />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
 
-        <CustomButton
-          type="submit"
-          isLoading={false}
-          className="mt-2"
-        >
-          Send password reset link
-        </CustomButton>
-      </form>
+          <CustomButton
+            type="submit"
+            isLoading={isLoading}
+            className="mt-2"
+          >
+            Send password reset link
+          </CustomButton>
+        </form>
+      </Form>
 
       <div className="text-center mt-8">
         <Link
