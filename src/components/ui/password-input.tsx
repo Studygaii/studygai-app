@@ -4,8 +4,7 @@ import { EyeIcon } from "lucide-react";
 import EyeSlashIcon from "@/assets/icons/EyeIconSlash";
 import { cn } from "@/lib/utils";
 
-export interface PasswordInputProps
-  extends React.InputHTMLAttributes<HTMLInputElement> { }
+export type PasswordInputProps = React.InputHTMLAttributes<HTMLInputElement>;
 
 const PasswordInput = React.forwardRef<HTMLInputElement, PasswordInputProps>(
   ({ className, ...props }, ref) => {
