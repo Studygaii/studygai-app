@@ -1,8 +1,8 @@
 import { AuthLayout } from "@/components/layouts/AuthLayout";
 import { Button } from "@/components/ui/button";
-import { LogoIcon } from "@/assets/icons/logo";
 import { Link } from "react-router-dom";
-import { MailCheck } from "lucide-react";
+import { ChevronLeft, MailCheck } from "lucide-react";
+import { CustomButton } from "@/components/ui/custom-button";
 
 export default function OtpSent() {
   return (
@@ -19,18 +19,30 @@ export default function OtpSent() {
 
       <div className="space-y-4">
         <Link to="/auth/verify-otp">
-          <Button className="w-full h-12 rounded-xl bg-[#1A1A2E] hover:bg-[#1A1A2E]/90 text-white font-medium text-base">
+          <CustomButton
+            type="submit"
+            isLoading={false}
+            className="mt-2"
+          >
             Enter code
-          </Button>
+          </CustomButton>
         </Link>
 
-        <Button variant="ghost" className="w-full h-12 rounded-xl font-medium text-muted-foreground hover:text-foreground">
+        <Button
+          type="submit"
+          variant="outline"
+          className="mt-2 w-full h-12 rounded-xl"
+        >
           Click to resend
         </Button>
       </div>
 
       <div className="text-center mt-6">
-        <Link to="/auth/login" className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors">
+        <Link
+          to="/auth/login"
+          className="group inline-flex items-center gap-2 text-sm font-medium text-foreground hover:underline transition-all"
+        >
+          <ChevronLeft className="h-4 w-4 transition-transform group-hover:-translate-x-1" />
           Back to log in
         </Link>
       </div>

@@ -22,7 +22,7 @@ export function AuthLayout({ children }: PropsWithChildren) {
       </div>
 
       <div className="relative z-10 w-full max-w-[480px] px-4">
-        <div className="bg-[#F7F7F8] backdrop-blur-xl rounded-[32px] p-8 md:p-10 shadow-[0_8px_40px_-12px_rgba(0,0,0,0.1)] border border-white/50">
+        <div className="bg-background backdrop-blur-xl rounded-[32px] p-8 md:p-10 shadow-[0_8px_40px_-12px_rgba(0,0,0,0.1)] border border-white/50">
           {children}
         </div>
       </div>

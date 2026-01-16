@@ -9,6 +9,7 @@ import {
   InputOTPGroup,
   InputOTPSlot,
 } from "@/components/ui/input-otp"
+import { CustomButton } from "@/components/ui/custom-button";
 
 export default function ConfirmOtp() {
   return (
@@ -26,18 +27,22 @@ export default function ConfirmOtp() {
       <form className="flex flex-col items-center space-y-6">
         <InputOTP maxLength={6}>
           <InputOTPGroup className="gap-2">
-            <InputOTPSlot index={0} className="rounded-lg border-border" />
-            <InputOTPSlot index={1} className="rounded-lg border-border" />
-            <InputOTPSlot index={2} className="rounded-lg border-border" />
-            <InputOTPSlot index={3} className="rounded-lg border-border" />
-            <InputOTPSlot index={4} className="rounded-lg border-border" />
-            <InputOTPSlot index={5} className="rounded-lg border-border" />
+            <InputOTPSlot index={0} className="rounded-md" />
+            <InputOTPSlot index={1} className="rounded-md" />
+            <InputOTPSlot index={2} className="rounded-md" />
+            <InputOTPSlot index={3} className="rounded-md" />
+            <InputOTPSlot index={4} className="rounded-md" />
+            <InputOTPSlot index={5} className="rounded-md" />
           </InputOTPGroup>
         </InputOTP>
 
-        <Button className="w-full h-12 rounded-xl bg-[#1A1A2E] hover:bg-[#1A1A2E]/90 text-white font-medium text-base">
+        <CustomButton
+          type="submit"
+          isLoading={false}
+          className="mt-2"
+        >
           Verify
-        </Button>
+        </CustomButton>
       </form>
 
       <div className="text-center mt-8">
@@ -45,8 +50,11 @@ export default function ConfirmOtp() {
           Didn't receive the email? <button className="font-semibold text-foreground hover:underline">Click to resend</button>
         </p>
 
-        <Link to="/auth/login" className="inline-flex items-center gap-2 text-sm font-medium text-foreground hover:text-primary transition-colors">
-          <ChevronLeft className="h-4 w-4" />
+        <Link
+          to="/auth/login"
+          className="group inline-flex items-center gap-2 text-sm font-medium text-foreground hover:underline transition-all"
+        >
+          <ChevronLeft className="h-4 w-4 transition-transform group-hover:-translate-x-1" />
           Back to log in
         </Link>
       </div>
