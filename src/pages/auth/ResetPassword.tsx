@@ -5,6 +5,7 @@ import { LogoIcon } from "@/assets/icons/logo";
 import { Link } from "react-router-dom";
 import { ChevronLeft } from "lucide-react";
 import { CustomButton } from "@/components/ui/custom-button";
+import { PasswordInput } from "@/components/ui/password-input";
 
 export default function ResetPassword() {
   return (
@@ -20,14 +21,8 @@ export default function ResetPassword() {
       </div>
 
       <form className="space-y-4">
-        <Input
-          type="password"
-          placeholder="New password"
-        />
-        <Input
-          type="password"
-          placeholder="Confirm new password"
-        />
+        <PasswordInput placeholder="New password" />
+        <PasswordInput placeholder="Confirm new password" />
 
         <CustomButton
           type="submit"

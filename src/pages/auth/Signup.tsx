@@ -4,6 +4,7 @@ import { Input } from "@/components/ui/input";
 import { LogoIcon } from "@/assets/icons/logo";
 import { Link } from "react-router-dom";
 import { CustomButton } from "@/components/ui/custom-button";
+import { PasswordInput } from "@/components/ui/password-input";
 
 export default function Signup() {
   return (
@@ -40,10 +41,7 @@ export default function Signup() {
           type="email"
           placeholder="Email"
         />
-        <Input
-          type="password"
-          placeholder="Password"
-        />
+        <PasswordInput placeholder="Password" />
 
         <CustomButton
           type="submit"

@@ -3,13 +3,11 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { LogoIcon } from "@/assets/icons/logo";
 import { Link } from "react-router-dom";
-import { EyeIcon } from "lucide-react";
-import EyeSlashIcon from "@/assets/icons/EyeIconSlash";
 import { useState } from "react";
 import { CustomButton } from "@/components/ui/custom-button";
+import { PasswordInput } from "@/components/ui/password-input";
 
 export default function Login() {
-  const [showPassword, setShowPassword] = useState(false)
   const [isLoading, setIsLoading] = useState(false)
 
   const handleSubmit = (e: React.FormEvent) => {
@@ -51,19 +49,7 @@ export default function Login() {
             />
           </div>
 
-          <div className="relative group">
-            <Input
-              type={showPassword ? "text" : "password"}
-              placeholder="Password"
-            />
-            <button
-              type="button"
-              onClick={() => setShowPassword(!showPassword)}
-              className="absolute inset-y-0 right-0 px-3 py-2"
-            >
-              {showPassword ? <EyeIcon className="h-5 w-5 text-muted-foreground" /> : <EyeSlashIcon />}
-            </button>
-          </div>
+          <PasswordInput placeholder="Password" />
         </div>
 
         <CustomButton
