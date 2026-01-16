@@ -3,7 +3,6 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { LogoIcon } from "@/assets/icons/logo";
 import { Link } from "react-router-dom";
-import { useState } from "react";
 import { CustomButton } from "@/components/ui/custom-button";
 import { PasswordInput } from "@/components/ui/password-input";
 import { useForm } from "react-hook-form";
@@ -18,8 +17,6 @@ import {
 } from "@/components/ui/form";
 
 export default function Signup() {
-  const [isLoading, setIsLoading] = useState(false)
-
   const form = useForm<SignupValues>({
     resolver: zodResolver(signupSchema),
     defaultValues: {
@@ -29,10 +26,10 @@ export default function Signup() {
     },
   });
 
-  const onSubmit = (values: SignupValues) => {
+  const onSubmit = async (values: SignupValues) => {
     console.log(values)
-    setIsLoading(true)
-    setTimeout(() => setIsLoading(false), 2000)
+    // Add real API call here if needed
+    await new Promise(resolve => setTimeout(resolve, 2000))
   }
 
   return (
@@ -104,7 +101,7 @@ export default function Signup() {
 
           <CustomButton
             type="submit"
-            isLoading={isLoading}
+            isLoading={form.formState.isSubmitting}
             className="mt-2"
           >
             Create account

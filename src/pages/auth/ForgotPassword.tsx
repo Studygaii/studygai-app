@@ -7,7 +7,6 @@ import { CustomButton } from "@/components/ui/custom-button";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { forgotPasswordSchema, ForgotPasswordValues } from "@/lib/validations/auth";
-import { useState } from "react";
 import {
   Form,
   FormControl,
@@ -17,8 +16,6 @@ import {
 } from "@/components/ui/form";
 
 export default function ForgotPassword() {
-  const [isLoading, setIsLoading] = useState(false)
-
   const form = useForm<ForgotPasswordValues>({
     resolver: zodResolver(forgotPasswordSchema),
     defaultValues: {
@@ -26,10 +23,10 @@ export default function ForgotPassword() {
     },
   });
 
-  const onSubmit = (values: ForgotPasswordValues) => {
+  const onSubmit = async (values: ForgotPasswordValues) => {
     console.log(values)
-    setIsLoading(true)
-    setTimeout(() => setIsLoading(false), 2000)
+    // Add real API call here if needed
+    await new Promise(resolve => setTimeout(resolve, 2000))
   }
 
   return (
@@ -65,7 +62,7 @@ export default function ForgotPassword() {
 
           <CustomButton
             type="submit"
-            isLoading={isLoading}
+            isLoading={form.formState.isSubmitting}
             className="mt-2"
           >
             Send password reset link

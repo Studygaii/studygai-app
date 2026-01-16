@@ -2,13 +2,15 @@ import { AuthLayout } from "@/components/layouts/AuthLayout";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { LogoIcon } from "@/assets/icons/logo";
-import { Link } from "react-router-dom";
-import { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import { CustomButton } from "@/components/ui/custom-button";
 import { PasswordInput } from "@/components/ui/password-input";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { loginSchema, LoginValues } from "@/lib/validations/auth";
+import { authRequests } from "@/services";
+import { useUserStore } from "@/store";
+import { axiosErrorToast, toastSuccess } from "@/lib/utils/toast";
 import {
   Form,
   FormControl,
@@ -18,7 +20,8 @@ import {
 } from "@/components/ui/form";
 
 export default function Login() {
-  const [isLoading, setIsLoading] = useState(false)
+  const navigate = useNavigate();
+  const { setUser, setToken } = useUserStore();
 
   const form = useForm<LoginValues>({
     resolver: zodResolver(loginSchema),
@@ -28,11 +31,20 @@ export default function Login() {
     },
   });
 
-  const onSubmit = (values: LoginValues) => {
-    console.log(values)
-    setIsLoading(true)
-    setTimeout(() => setIsLoading(false), 2000)
-  }
+  const onSubmit = async (values: LoginValues) => {
+    try {
+      const response = await authRequests.login(values);
+      const { user, token } = response.data;
+
+      setUser(user);
+      setToken(token);
+
+      toastSuccess("Welcome back!");
+      navigate("/");
+    } catch (error) {
+      axiosErrorToast(error);
+    }
+  };
 
   return (
     <AuthLayout>
@@ -89,7 +101,7 @@ export default function Login() {
 
           <CustomButton
             type="submit"
-            isLoading={isLoading}
+            isLoading={form.formState.isSubmitting}
             className="mt-2"
           >
             Log in

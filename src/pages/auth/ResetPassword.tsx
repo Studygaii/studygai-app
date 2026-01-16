@@ -7,7 +7,6 @@ import { PasswordInput } from "@/components/ui/password-input";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { resetPasswordSchema, ResetPasswordValues } from "@/lib/validations/auth";
-import { useState } from "react";
 import {
   Form,
   FormControl,
@@ -17,8 +16,6 @@ import {
 } from "@/components/ui/form";
 
 export default function ResetPassword() {
-  const [isLoading, setIsLoading] = useState(false)
-
   const form = useForm<ResetPasswordValues>({
     resolver: zodResolver(resetPasswordSchema),
     defaultValues: {
@@ -27,10 +24,10 @@ export default function ResetPassword() {
     },
   });
 
-  const onSubmit = (values: ResetPasswordValues) => {
+  const onSubmit = async (values: ResetPasswordValues) => {
     console.log(values)
-    setIsLoading(true)
-    setTimeout(() => setIsLoading(false), 2000)
+    // Add real API call here if needed
+    await new Promise(resolve => setTimeout(resolve, 2000))
   }
 
   return (
@@ -75,7 +72,7 @@ export default function ResetPassword() {
 
           <CustomButton
             type="submit"
-            isLoading={isLoading}
+            isLoading={form.formState.isSubmitting}
             className="mt-2"
           >
             Reset password
