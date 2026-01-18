@@ -7,14 +7,14 @@ const DashboardLayout = ({ children }: { children: React.ReactNode }) => {
   const [sidebarCollapsed, setSidebarCollapsed] = useState(false);
 
   return (
-    <div className="h-screen flex overflow-hidden bg-card">
+    <div className="h-screen flex overflow-hidden bg-transparent">
       <AppSidebar
         collapsed={sidebarCollapsed}
         onToggle={() => setSidebarCollapsed(!sidebarCollapsed)}
       />
 
       {/* Main Content with border and grid background */}
-      <main className="flex-1 flex flex-col min-h-0 relative border-l border-border rounded-tl-3xl overflow-hidden bg-background">
+      <main className="flex-1 flex flex-col min-h-0 relative border-l border-border rounded-tl-3xl overflow-hidden bg-transparent">
         {/* Grid Background that fades */}
         <div
           className="absolute inset-0 pointer-events-none"
