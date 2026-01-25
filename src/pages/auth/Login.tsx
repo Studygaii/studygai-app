@@ -34,10 +34,16 @@ export default function Login() {
   const onSubmit = async (values: LoginValues) => {
     try {
       const response = await authRequests.login(values);
-      const { user, token } = response.data;
+      const { user, token } = response.data.data;
 
-      setUser(user);
+      setUser({
+        id: user.id,
+        email: user.email,
+        fullName: user.username,
+        avatar: user.avatar,
+      });
       setToken(token);
+      localStorage.setItem("token", token);
 
       toastSuccess("Welcome back!");
       navigate("/");
@@ -57,7 +63,12 @@ export default function Login() {
 
       <Form {...form}>
         <form className="space-y-4" onSubmit={form.handleSubmit(onSubmit)}>
-          <Button variant="outline" className="shadow-[0_8px_40px_-12px_rgba(0,0,0,0.1)] w-full h-12 rounded-md border-border bg-white hover:bg-[#1A1A2E] hover:text-white font-medium text-base gap-2" type="button">
+          <Button 
+            variant="outline" 
+            className="shadow-[0_8px_40px_-12px_rgba(0,0,0,0.1)] w-full h-12 rounded-md border-border bg-#1A1A2A hover:bg-[#1A1A2E] hover:text-white font-medium text-base gap-2" 
+            type="button"
+            onClick={() => authRequests.initiateGoogleAuth()}
+          >
             <span>Log in with Google</span>
             <img src="/icons/google.svg" alt="google" width={25} height={25} />
           </Button>
