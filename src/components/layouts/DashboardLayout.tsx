@@ -4,10 +4,18 @@ import { DashboardHeader } from "@/components/dashboard/DashboardHeader";
 import { FloatingActionButton } from "@/components/dashboard/FloatingActionButton";
 
 const DashboardLayout = ({ children }: { children: React.ReactNode }) => {
-  const [sidebarCollapsed, setSidebarCollapsed] = useState(false);
+  const [sidebarCollapsed, setSidebarCollapsed] = useState(true); // Default collapsed on mobile
 
   return (
-    <div className="h-screen flex overflow-hidden bg-transparent">
+    <div className="h-screen flex overflow-hidden bg-transparent md:flex-row flex-col">
+      {/* Mobile Menu Overlay */}
+      {!sidebarCollapsed && (
+        <div
+          className="fixed inset-0 bg-black/50 z-30 md:hidden"
+          onClick={() => setSidebarCollapsed(true)}
+        />
+      )}
+
       <AppSidebar
         collapsed={sidebarCollapsed}
         onToggle={() => setSidebarCollapsed(!sidebarCollapsed)}
@@ -17,7 +25,7 @@ const DashboardLayout = ({ children }: { children: React.ReactNode }) => {
       <main className="flex-1 flex flex-col min-h-0 relative border-l border-border rounded-tl-3xl overflow-hidden bg-transparent">
         {/* Grid Background that fades */}
         <div
-          className="absolute inset-0 pointer-events-none"
+          className="absolute inset-0 pointer-events-none hidden md:block"
           style={{
             backgroundImage: `
               linear-gradient(to right, hsl(var(--border) / 0.7) 2px, transparent 2px),
@@ -30,8 +38,8 @@ const DashboardLayout = ({ children }: { children: React.ReactNode }) => {
         />
 
         {/* Scrollable Content */}
-        <div className="flex-1 overflow-y-auto p-6 relative z-10">
-          <DashboardHeader />
+        <div className="flex-1 overflow-y-auto px-4 md:px-6 py-4 md:py-6 relative z-10">
+          <DashboardHeader onSidebarToggle={() => setSidebarCollapsed(!sidebarCollapsed)} />
           {children}
         </div>
 

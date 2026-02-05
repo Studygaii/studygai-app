@@ -22,7 +22,6 @@ import {
 export default function Signup() {
   const navigate = useNavigate();
   const { setUser, setToken } = useUserStore();
-
   const form = useForm<SignupValues>({
     resolver: zodResolver(signupSchema),
     defaultValues: {
@@ -34,23 +33,20 @@ export default function Signup() {
 
   const onSubmit = async (values: SignupValues) => {
     try {
-      const response = await authRequests.signup(values);
-      const { user, token } = response.data.data;
-
-      setUser({
-        id: user.id,
-        email: user.email,
-        fullName: user.username,
-        avatar: user.avatar,
+      const response = await authRequests.signup({
+        fullName: values.fullName,
+        email: values.email,
+        password: values.password,
       });
+      const { user, token } = response.data.data || response.data;
+      setUser({ id: user.id, email: user.email, fullName: user.username, avatar: user.avatar });
       setToken(token);
-
-      toastSuccess("Account created successfully!");
-      navigate("/");
+      toastSuccess("Account created!");
+      navigate("/dashboard");
     } catch (error) {
       axiosErrorToast(error);
     }
-  }
+  };
 
   return (
     <AuthLayout>
