@@ -1,27 +1,6 @@
-import { PropsWithChildren, useEffect, useRef } from "react";
-import lottie from "lottie-web";
+import { PropsWithChildren } from "react";
 
 export function AuthLayout({ children }: PropsWithChildren) {
-  const animationContainer = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    if (animationContainer.current) {
-      lottie.loadAnimation({
-        container: animationContainer.current,
-        renderer: "svg",
-        loop: true,
-        autoplay: true,
-        path: "/upload.json",
-      });
-    }
-
-    return () => {
-      if (animationContainer.current) {
-        lottie.destroy();
-      }
-    };
-  }, []);
-
   return (
     <div className="min-h-screen w-full flex items-center justify-center relative overflow-hidden bg-transparent">
       {/* Background Gradients matching the design */}
@@ -31,25 +10,15 @@ export function AuthLayout({ children }: PropsWithChildren) {
 
         {/* Bottom Right Pinkish shape */}
         <div className="absolute bottom-[-20%] right-[-10%] w-[80%] h-[80%] bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-destructive/5 via-transparent to-transparent blur-3xl opacity-30" />
-
-        {/* Center White/Light glow - REMOVED to let background show */}
       </div>
-
-      {/* Dynamic Abstract Background Image Simulation - REMOVED */}
 
       {/* Two Column Layout */}
       <div className="relative z-10 w-full flex items-center justify-center">
-        {/* Left Side - Animation (hidden on mobile) */}
+        {/* Left Side - Decorative illustration (hidden on mobile) */}
         <div className="hidden lg:flex lg:w-1/2 items-center justify-center">
-          <div
-            ref={animationContainer}
-            className="w-[400px] h-[400px]"
-            style={{
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-            }}
-          />
+          <div className="relative w-[400px] h-[400px] flex items-center justify-center">
+            <div className="w-64 h-64 rounded-full bg-gradient-to-br from-primary/20 to-primary/5 animate-pulse" />
+          </div>
         </div>
 
         {/* Right Side - Auth Form */}

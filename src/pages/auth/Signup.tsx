@@ -2,12 +2,15 @@ import { AuthLayout } from "@/components/layouts/AuthLayout";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { LogoIcon } from "@/assets/icons/logo";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { CustomButton } from "@/components/ui/custom-button";
 import { PasswordInput } from "@/components/ui/password-input";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { signupSchema, SignupValues } from "@/lib/validations/auth";
+import { authRequests } from "@/services";
+import { useUserStore } from "@/store";
+import { axiosErrorToast, toastSuccess } from "@/lib/utils/toast";
 import {
   Form,
   FormControl,
@@ -17,6 +20,8 @@ import {
 } from "@/components/ui/form";
 
 export default function Signup() {
+  const navigate = useNavigate();
+  const { setUser, setToken } = useUserStore();
   const form = useForm<SignupValues>({
     resolver: zodResolver(signupSchema),
     defaultValues: {
@@ -27,10 +32,21 @@ export default function Signup() {
   });
 
   const onSubmit = async (values: SignupValues) => {
-    console.log(values)
-    // Add real API call here if needed
-    await new Promise(resolve => setTimeout(resolve, 2000))
-  }
+    try {
+      const response = await authRequests.signup({
+        username: values.fullName,
+        email: values.email,
+        password: values.password,
+      });
+      const { user, token } = response.data.data || response.data;
+      setUser({ id: user.id, email: user.email, fullName: user.username, avatar: user.avatar });
+      setToken(token);
+      toastSuccess("Account created!");
+      navigate("/dashboard");
+    } catch (error) {
+      axiosErrorToast(error);
+    }
+  };
 
   return (
     <AuthLayout>

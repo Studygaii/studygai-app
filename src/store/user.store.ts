@@ -24,8 +24,15 @@ export const useUserStore = create<UserState>()(
       token: null,
       isAuthenticated: false,
       setUser: (user) => set({ user, isAuthenticated: !!user }),
-      setToken: (token) => set({ token }),
-      logout: () => set({ user: null, token: null, isAuthenticated: false }),
+      setToken: (token) => {
+        if (token) localStorage.setItem("token", token);
+        else localStorage.removeItem("token");
+        set({ token });
+      },
+      logout: () => {
+        localStorage.removeItem("token");
+        set({ user: null, token: null, isAuthenticated: false });
+      },
     }),
     {
       name: "user-storage",

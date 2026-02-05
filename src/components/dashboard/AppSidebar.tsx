@@ -1,14 +1,16 @@
-import { Home, Sparkles, Settings, Plus, ChevronDown, ChevronLeft, ChevronRight, BookOpen, Clock10Icon, Bookmark, BookType } from "lucide-react";
+import { Home, Sparkles, Settings, Plus, ChevronDown, ChevronLeft, ChevronRight, BookOpen, Clock10Icon, Bookmark, BookType, MessageSquare } from "lucide-react";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { cn } from "@/lib/utils";
 import { LogoIcon } from "@/assets/icons/logo";
+import { Link, useLocation } from "react-router-dom";
 
-const navItems: { icon: any; label: string; active?: boolean; badge?: boolean }[] = [
-  { icon: Home, label: "Dashboard", active: true },
-  { icon: BookOpen, label: "My Courses" },
-  { icon: Clock10Icon, label: "Quizzes" },
-  { icon: Bookmark, label: "Flashcards" },
-  { icon: BookType, label: "My Exams" },
+const navItems: { icon: any; label: string; path: string }[] = [
+  { icon: Home, label: "Dashboard", path: "/dashboard" },
+  { icon: BookOpen, label: "My Courses", path: "/dashboard" },
+  { icon: Clock10Icon, label: "Quizzes", path: "/quizzes" },
+  { icon: Bookmark, label: "Flashcards", path: "/flashcards" },
+  { icon: BookType, label: "My Exams", path: "/exams" },
+  { icon: MessageSquare, label: "Group Chat", path: "/groupchats" },
 ];
 
 interface AppSidebarProps {
@@ -17,6 +19,7 @@ interface AppSidebarProps {
 }
 
 export function AppSidebar({ collapsed, onToggle }: AppSidebarProps) {
+  const location = useLocation();
   return (
     <aside className={cn(
       "bg-card h-screen flex flex-col transition-all duration-300 relative flex-shrink-0",
@@ -53,25 +56,26 @@ export function AppSidebar({ collapsed, onToggle }: AppSidebarProps) {
 
       {/* Navigation */}
       <nav className="flex-1 space-y-1 overflow-hidden mt-5">
-        {navItems.map((item) => (
-          <button
-            key={item.label}
-            className={cn(
-              "w-full flex items-center gap-3 rounded-md text-sm transition-all",
-              collapsed ? "justify-center px-3 py-3" : "px-3 py-2.5",
-              item.active
-                ? "bg-secondary text-secondary-foreground font-medium"
-                : "text-muted-foreground hover:bg-muted hover:text-foreground"
-            )}
-            title={collapsed ? item.label : undefined}
-          >
-            <item.icon className="h-5 w-5 flex-shrink-0" />
-            {!collapsed && <span className="truncate">{item.label}</span>}
-            {!collapsed && item.badge && (
-              <span className="ml-auto text-xs">✨</span>
-            )}
-          </button>
-        ))}
+        {navItems.map((item) => {
+          const isActive = location.pathname === item.path || (item.path === "/dashboard" && location.pathname.startsWith("/dashboard"));
+          return (
+            <Link
+              key={item.label}
+              to={item.path}
+              className={cn(
+                "w-full flex items-center gap-3 rounded-md text-sm transition-all",
+                collapsed ? "justify-center px-3 py-3" : "px-3 py-2.5",
+                isActive
+                  ? "bg-secondary text-secondary-foreground font-medium"
+                  : "text-muted-foreground hover:bg-muted hover:text-foreground"
+              )}
+              title={collapsed ? item.label : undefined}
+            >
+              <item.icon className="h-5 w-5 flex-shrink-0" />
+              {!collapsed && <span className="truncate">{item.label}</span>}
+            </Link>
+          );
+        })}
         {/* Settings */}
         <button
           className={cn(
@@ -91,15 +95,17 @@ export function AppSidebar({ collapsed, onToggle }: AppSidebarProps) {
         <div className="bg-primary rounded-xl p-4 text-primary-foreground">
           <div className="flex items-center gap-1 mb-2">
             <Sparkles className="h-4 w-4" />
-            <span className="font-semibold text-sm">prodify</span>
+            <span className="font-semibold text-sm">StudyGAI</span>
           </div>
           <p className="text-xs opacity-90 mb-3 leading-relaxed">
-            New members will gain access to public Spaces, Docs and Dashboards
+            Upload documents, generate quizzes & flashcards, and chat with AI
           </p>
-          <button className="w-full bg-card text-primary font-medium text-sm py-2 rounded-md hover:bg-card/90 transition-colors flex items-center justify-center gap-1.5">
-            <Plus className="h-4 w-4" />
-            Invite people
-          </button>
+          <Link to="/dashboard">
+            <button className="w-full bg-card text-primary font-medium text-sm py-2 rounded-md hover:bg-card/90 transition-colors flex items-center justify-center gap-1.5">
+              <Plus className="h-4 w-4" />
+              New course
+            </button>
+          </Link>
         </div>
       )}
 

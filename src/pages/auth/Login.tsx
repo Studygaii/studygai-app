@@ -34,13 +34,13 @@ export default function Login() {
   const onSubmit = async (values: LoginValues) => {
     try {
       const response = await authRequests.login(values);
-      const { user, token } = response.data;
+      const { user, token } = response.data.data || response.data;
 
-      setUser(user);
+      setUser({ id: user.id, email: user.email, fullName: user.username || user.fullName, avatar: user.avatar });
       setToken(token);
 
       toastSuccess("Welcome back!");
-      navigate("/");
+      navigate("/dashboard");
     } catch (error) {
       axiosErrorToast(error);
     }
