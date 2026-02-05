@@ -8,6 +8,7 @@ import ForgotPassword from "@/pages/auth/ForgotPassword";
 import ResetPassword from "@/pages/auth/ResetPassword";
 import OtpSent from "@/pages/auth/OtpSent";
 import ConfirmOtp from "@/pages/auth/ConfirmOtp";
+import GoogleCallback from "@/pages/auth/GoogleCallback";
 
 export const publicRoutes: RouteObject[] = [
   {
@@ -41,6 +42,10 @@ export const publicRoutes: RouteObject[] = [
   {
     path: "/auth/verify-otp",
     element: <ConfirmOtp />,
+  },
+  {
+    path: "/auth/callback",
+    element: <GoogleCallback />,
   },
   {
     path: "*",

@@ -15,7 +15,11 @@ class AuthRequest {
   }
 
   signup(data: SignupValues) {
-    return api.post(`${this.prefix}/signup`, data);
+    return api.post(`${this.prefix}/register`, {
+      username: data.fullName,
+      email: data.email,
+      password: data.password,
+    });
   }
 
   forgotPassword(data: ForgotPasswordValues) {
@@ -32,6 +36,17 @@ class AuthRequest {
 
   resendOtp(email: string) {
     return api.post(`${this.prefix}/resend-otp`, { email });
+  }
+
+  initiateGoogleAuth() {
+    // Redirect to backend Google OAuth endpoint
+    const backendUrl = import.meta.env.VITE_API_URL || "http://localhost:4000/api/v1";
+    window.location.href = `${backendUrl}/auth/google`;
+  }
+
+  handleGoogleCallback(token: string) {
+    localStorage.setItem("token", token);
+    return { token };
   }
 }
 

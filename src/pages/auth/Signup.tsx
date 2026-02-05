@@ -2,12 +2,15 @@ import { AuthLayout } from "@/components/layouts/AuthLayout";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { LogoIcon } from "@/assets/icons/logo";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { CustomButton } from "@/components/ui/custom-button";
 import { PasswordInput } from "@/components/ui/password-input";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { signupSchema, SignupValues } from "@/lib/validations/auth";
+import { authRequests } from "@/services";
+import { useUserStore } from "@/store";
+import { axiosErrorToast, toastSuccess } from "@/lib/utils/toast";
 import {
   Form,
   FormControl,
@@ -17,6 +20,9 @@ import {
 } from "@/components/ui/form";
 
 export default function Signup() {
+  const navigate = useNavigate();
+  const { setUser, setToken } = useUserStore();
+
   const form = useForm<SignupValues>({
     resolver: zodResolver(signupSchema),
     defaultValues: {
@@ -27,9 +33,23 @@ export default function Signup() {
   });
 
   const onSubmit = async (values: SignupValues) => {
-    console.log(values)
-    // Add real API call here if needed
-    await new Promise(resolve => setTimeout(resolve, 2000))
+    try {
+      const response = await authRequests.signup(values);
+      const { user, token } = response.data.data;
+
+      setUser({
+        id: user.id,
+        email: user.email,
+        fullName: user.username,
+        avatar: user.avatar,
+      });
+      setToken(token);
+
+      toastSuccess("Account created successfully!");
+      navigate("/");
+    } catch (error) {
+      axiosErrorToast(error);
+    }
   }
 
   return (
@@ -44,7 +64,12 @@ export default function Signup() {
 
       <Form {...form}>
         <form className="space-y-4" onSubmit={form.handleSubmit(onSubmit)}>
-          <Button variant="outline" className="shadow-[0_8px_40px_-12px_rgba(0,0,0,0.1)] w-full h-12 rounded-md border-border bg-white hover:bg-[#1A1A2E] hover:text-white font-medium text-base gap-2" type="button">
+          <Button 
+            variant="outline" 
+            className="shadow-[0_8px_40px_-12px_rgba(0,0,0,0.1)] w-full h-12 rounded-md border-border bg-#1A1A2A hover:bg-[#1A1A2E] hover:text-white font-medium text-base gap-2" 
+            type="button"
+            onClick={() => authRequests.initiateGoogleAuth()}
+          >
             <span>Sign up with Google</span>
             <img src="/icons/google.svg" alt="google" width={25} height={25} />
           </Button>
