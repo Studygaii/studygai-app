@@ -7,10 +7,26 @@ const api = axios.create({
   },
 });
 
+function getAuthToken(): string | null {
+  let token = localStorage.getItem("token");
+  if (!token) {
+    try {
+      const stored = localStorage.getItem("user-storage");
+      if (stored) {
+        const parsed = JSON.parse(stored);
+        token = parsed?.state?.token || null;
+      }
+    } catch {
+      // ignore
+    }
+  }
+  return token;
+}
+
 // Add a request interceptor to include the auth token in headers
 api.interceptors.request.use(
   (config) => {
-    const token = localStorage.getItem("token");
+    const token = getAuthToken();
     if (token) {
       config.headers.Authorization = `Bearer ${token}`;
     }
@@ -26,9 +42,12 @@ api.interceptors.response.use(
   (response) => response,
   (error) => {
     if (error.response?.status === 401) {
-      // Handle unauthorized error (e.g., redirect to login or refresh token)
       localStorage.removeItem("token");
-      // window.location.href = "/auth/login";
+      // Redirect to login only if not already on auth pages
+      const path = window.location.pathname;
+      if (!path.startsWith("/auth/")) {
+        window.location.href = "/auth/login";
+      }
     }
     return Promise.reject(error);
   }
