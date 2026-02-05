@@ -34,7 +34,7 @@ export default function Signup() {
   const onSubmit = async (values: SignupValues) => {
     try {
       const response = await authRequests.signup({
-        username: values.fullName,
+        fullName: values.fullName,
         email: values.email,
         password: values.password,
       });

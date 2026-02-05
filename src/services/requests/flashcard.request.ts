@@ -9,7 +9,7 @@ export interface FlashcardItem {
 }
 
 class FlashcardRequest {
-  private prefix = "/v1/flashcards";
+  private prefix = "/flashcards";
 
   create(data: {
     title?: string;

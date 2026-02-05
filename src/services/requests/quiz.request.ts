@@ -1,7 +1,7 @@
 import api from "../api";
 
 class QuizRequest {
-  private prefix = "/v1/quiz";
+  private prefix = "/quiz";
 
   generate(courseId: string, data?: {
     numQuestions?: number;

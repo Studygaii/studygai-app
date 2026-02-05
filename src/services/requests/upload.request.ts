@@ -1,7 +1,7 @@
 import api from "../api";
 
 class UploadRequest {
-  private prefix = "/v1/upload";
+  private prefix = "/upload";
 
   uploadDoc(files: File[], courseId: string) {
     const formData = new FormData();

@@ -1,7 +1,7 @@
 import api from "../api";
 
 class GroupChatRequest {
-  private prefix = "/v1/groupchat";
+  private prefix = "/groupchat";
 
   create(data: { name: string; creator: string; members: string[]; course: string }) {
     return api.post(`${this.prefix}/create`, data);

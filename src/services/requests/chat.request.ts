@@ -6,7 +6,7 @@ export interface ChatMessage {
 }
 
 class ChatRequest {
-  private prefix = "/v1/chat";
+  private prefix = "/chat";
 
   list(courseId: string) {
     return api.get(`${this.prefix}/list/${courseId}`);

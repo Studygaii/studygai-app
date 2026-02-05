@@ -1,7 +1,7 @@
 import api from "../api";
 
 class CourseRequest {
-  private prefix = "/v1/course";
+  private prefix = "/course";
 
   list() {
     return api.get(`${this.prefix}/list`);
